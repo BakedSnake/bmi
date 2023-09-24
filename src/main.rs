@@ -1,6 +1,11 @@
 use std::io;
 use std::env;
 
+// Turn String i.e. "1.73" into a float 1.73
+pub fn pars(s: String) -> f32 {
+    return s.trim().parse().unwrap()
+}
+
 // Lifestyle
 pub fn get_lstyle(l: String) -> f32 {
     if l == "sedentary" {
@@ -42,7 +47,7 @@ pub fn do_bmi() -> f32 {
     let mut height = String::new();
     io::stdin().read_line(&mut height)
         .expect("Error reading input");
-    let mheight: f32 = to_meters(height.trim().parse().unwrap()); // Convert from string to number
+    let mheight: f32 = to_meters(pars(height)); // Convert from string to number
 
     // Weight
     println!("How much do you weight in kilograms?");
@@ -51,12 +56,11 @@ pub fn do_bmi() -> f32 {
     io::stdin().read_line(&mut weight)
         .expect("Error reading input");
     // Convert input to number
-    let mweight: f32 = weight.trim().parse().unwrap(); // Convert from string to number
+    let mweight: f32 = to_meters(pars(weight)); // Convert from string to number
 
     // BMI
     let bmi = calc_bmi(mheight, mweight);
     return bmi;
-
 }
 
 // Classification
@@ -73,19 +77,16 @@ pub fn classification(b: f32) {
 }
 
 fn main() {
-    let args: Vec<String> = env::args().collect();
-
+    let mut args: Vec<String> = env::args().collect();
+    for i in 2..3 { args[i] = args[i].clone() + ".0"; }
     // Calculate Calorie consumption
     if args[1] == "c" {
         if args[5] == "male" {
-            let a2 = args[2].clone() + ".0";
-            let a3 = args[3].clone() + ".0";
-            let a4 = args[4].clone() + ".0";
-            let bmr = male_bmr(a3.trim().parse().unwrap(), a2.trim().parse().unwrap(), a4.trim().parse().unwrap());
+            let bmr = male_bmr(pars(args[3].to_string()), pars(args[2].to_string()), pars(args[4].to_string()));
             let cals = bmr * get_lstyle(args[6].clone());
             println!("To reach your desired weight you need {} calories daily.", cals.ceil());
         } else if args[5] == "female" {
-            let bmr = female_bmr(args[3].trim().parse().unwrap(), args[2].trim().parse().unwrap(), args[4].trim().parse().unwrap());
+            let bmr = female_bmr(pars(args[3].to_string()), pars(args[2].to_string()), pars(args[4].to_string()));
             let cals = bmr * get_lstyle(args[6].clone());
             println!("To reach your desired weight you need {} calories daily.", cals.ceil());
         }
