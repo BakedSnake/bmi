@@ -1,6 +1,23 @@
 use std::io;
 use std::env;
 
+// Lifestyle
+pub fn get_lstyle(l: String) -> f32 {
+    if l == "sedentary" {
+        return 1.2; 
+    } else if l == "light-active" {
+        return 1.375;
+    } else if l == "active" {
+        return 1.55;
+    } else if l == "very-active" {
+        return 1.725;
+    } else if l == "super-active"{
+        return 1.9;
+    } else {
+        return 0.0;
+    }
+}
+
 // BMR Formula
 pub fn male_bmr(w: f32, h: f32, a: f32) -> f32 {
     return 10.0 * w + 6.25 * h - 5.0 * a + 5.0;
@@ -65,11 +82,11 @@ fn main() {
             let a3 = args[3].clone() + ".0";
             let a4 = args[4].clone() + ".0";
             let bmr = male_bmr(a3.trim().parse().unwrap(), a2.trim().parse().unwrap(), a4.trim().parse().unwrap());
-            let cals = bmr * 1.375;
+            let cals = bmr * get_lstyle(args[6].clone());
             println!("To reach your desired weight you need {} calories daily.", cals.ceil());
         } else if args[5] == "female" {
             let bmr = female_bmr(args[3].trim().parse().unwrap(), args[2].trim().parse().unwrap(), args[4].trim().parse().unwrap());
-            let cals = bmr * 1.375;
+            let cals = bmr * get_lstyle(args[6].clone());
             println!("To reach your desired weight you need {} calories daily.", cals.ceil());
         }
     // Calculate BMI
