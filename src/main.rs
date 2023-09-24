@@ -74,7 +74,7 @@ pub fn classification(b: f32) {
 fn main() {
     let mut args: Vec<String> = env::args().collect();
     // Calculate Calorie consumption
-    if args[1] == "c" {
+    if args[1] == "-c" || args[1] == "-cal" {
         for i in 2..3 { args[i] = args[i].clone() + ".0"; }
         if args[5] == "male" {
             let bmr = male_bmr(pars(args[3].to_string()), pars(args[2].to_string()), pars(args[4].to_string()));
@@ -86,7 +86,7 @@ fn main() {
             println!("To reach your desired weight you need {} calories daily.", cals.ceil());
         }
     // Calculate BMI
-    } else if args[1] == "b" {
+    } else if args[1] == "-b" || args[1] == "-bmi" {
         let bmi = do_bmi();
         println!("Your BMI score is {}", bmi);
         classification(bmi);
@@ -95,9 +95,9 @@ fn main() {
         println!("");
         println!("Usage:");
         println!("------");
-        println!("  bmi-calculate     -h, --help  Print help.");
-        println!("  bmi-calculate     -b, --bmi   Calculate bmi.");
-        println!("  bmi-calculate     -c, --cal   Calculate calorie intake.");
+        println!("  bmi     -h, --help  Print help.");
+        println!("  bmi     -b, --bmi   Calculate bmi.");
+        println!("  bmi     -c, --cal   Calculate calorie intake.");
         println!("");
     }
 }
