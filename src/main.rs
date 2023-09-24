@@ -1,4 +1,5 @@
 use std::io;
+use std::env;
 
 // Convert cm to m
 pub fn to_meters(h: f32) -> f32 {
@@ -24,25 +25,36 @@ pub fn classification(b: f32) {
 }
 
 fn main() {
-    // Height
-    println!("What is your height in centimeters?");
-    // Get height input
-    let mut height = String::new();
-    io::stdin().read_line(&mut height)
-        .expect("Error reading input");
-    let mheight: f32 = to_meters(height.trim().parse().unwrap()); // Convert from string to number
+    let args: Vec<String> = env::args().collect();
 
-    // Weight
-    println!("How much do you weight in kilograms?");
-    // Get weight input
-    let mut weight = String::new();
-    io::stdin().read_line(&mut weight)
-        .expect("Error reading input");
-    // Convert input to number
-    let mweight: f32 = weight.trim().parse().unwrap(); // Convert from string to number
+    // Calculate Calorie consumption
+    if args[1] == "c" {
+        println!("You chose {} days.", args[2]);
+    // Calculate BMI
+    } else if args[1] == "b" {
+        // Height
+        println!("What is your height in centimeters?");
+        // Get height input
+        let mut height = String::new();
+        io::stdin().read_line(&mut height)
+            .expect("Error reading input");
+        let mheight: f32 = to_meters(height.trim().parse().unwrap()); // Convert from string to number
 
-    // BMI
-    let bmi = calc_bmi(mheight, mweight);
-    println!("Your BMI score is {}", bmi);
-    classification(bmi);
+        // Weight
+        println!("How much do you weight in kilograms?");
+        // Get weight input
+        let mut weight = String::new();
+        io::stdin().read_line(&mut weight)
+            .expect("Error reading input");
+        // Convert input to number
+        let mweight: f32 = weight.trim().parse().unwrap(); // Convert from string to number
+
+        // BMI
+        let bmi = calc_bmi(mheight, mweight);
+        println!("Your BMI score is {}", bmi);
+        classification(bmi);
+    // Print help
+    } else {
+        println!("Print help.");
+    }
 }
