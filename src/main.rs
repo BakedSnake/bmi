@@ -4,15 +4,15 @@ use std::env;
 // Lifestyle
 pub fn get_lstyle(l: String) -> f32 {
     if l == "sedentary" {
-        return 1.2; 
+        return 1.2; // Little to no exercise 
     } else if l == "light-active" {
-        return 1.375;
+        return 1.375; // exercise 1-3 days a week
     } else if l == "active" {
-        return 1.55;
+        return 1.55; // exercise 3-5 days a week
     } else if l == "very-active" {
-        return 1.725;
+        return 1.725; // exercise 6-7 days a week
     } else if l == "super-active"{
-        return 1.9;
+        return 1.9; // training twicer a day
     } else {
         return 0.0;
     }
