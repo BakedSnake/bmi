@@ -28,7 +28,7 @@ pub fn female_bmr(w: f32, h: f32, a: f32) -> f32 {
 
 // Convert cm to m
 pub fn to_meters(h: f32) -> f32 {
-    return h / 100.0;
+    return h / 10000.0;
 }
 
 // BMI formula
@@ -73,9 +73,9 @@ pub fn classification(b: f32) {
 
 fn main() {
     let mut args: Vec<String> = env::args().collect();
-    for i in 2..3 { args[i] = args[i].clone() + ".0"; }
     // Calculate Calorie consumption
     if args[1] == "c" {
+        for i in 2..3 { args[i] = args[i].clone() + ".0"; }
         if args[5] == "male" {
             let bmr = male_bmr(pars(args[3].to_string()), pars(args[2].to_string()), pars(args[4].to_string()));
             let cals = bmr * get_lstyle(&args[6].clone());
