@@ -96,6 +96,12 @@ fn main() {
         classification(bmi);
     // Print help
     } else {
-        println!("Print help.");
+        println!("");
+        println!("Usage:");
+        println!("------");
+        println!("  bmi-calculate     -h, --help  Print help.");
+        println!("  bmi-calculate     -b, --bmi   Calculate bmi.");
+        println!("  bmi-calculate     -c, --cal   Calculate calorie intake.");
+        println!("");
     }
 }
