@@ -3,7 +3,7 @@
 #### Install
 
 ```
-$ git clone url
+$ git clone https://github.com/BakedSnake/bmi 
 $ cd bmi
 $ make
 $ sudo make install
