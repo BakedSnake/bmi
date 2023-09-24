@@ -7,20 +7,15 @@ pub fn pars(s: String) -> f32 {
 }
 
 // Lifestyle
-pub fn get_lstyle(l: String) -> f32 {
-    if l == "sedentary" {
-        return 1.2; // Little to no exercise 
-    } else if l == "light-active" {
-        return 1.375; // exercise 1-3 days a week
-    } else if l == "active" {
-        return 1.55; // exercise 3-5 days a week
-    } else if l == "very-active" {
-        return 1.725; // exercise 6-7 days a week
-    } else if l == "super-active"{
-        return 1.9; // training twicer a day
-    } else {
-        return 0.0;
-    }
+pub fn get_lstyle(l: &str) -> f32 {
+    return match l {
+        "sedentary" => 1.2,
+        "light-active" => 1.375,
+        "active" => 1.55,
+        "very-active" => 1.725,
+        "super-active" => 1.9,
+        _ => 0.0,
+    };
 }
 
 // BMR Formula
@@ -83,11 +78,11 @@ fn main() {
     if args[1] == "c" {
         if args[5] == "male" {
             let bmr = male_bmr(pars(args[3].to_string()), pars(args[2].to_string()), pars(args[4].to_string()));
-            let cals = bmr * get_lstyle(args[6].clone());
+            let cals = bmr * get_lstyle(&args[6].clone());
             println!("To reach your desired weight you need {} calories daily.", cals.ceil());
         } else if args[5] == "female" {
             let bmr = female_bmr(pars(args[3].to_string()), pars(args[2].to_string()), pars(args[4].to_string()));
-            let cals = bmr * get_lstyle(args[6].clone());
+            let cals = bmr * get_lstyle(&args[6].clone());
             println!("To reach your desired weight you need {} calories daily.", cals.ceil());
         }
     // Calculate BMI
